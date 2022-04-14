@@ -35,7 +35,7 @@ export class IGDB {
      * @param rateLimitOptions - Axios Rate Limit Options. Default is 4 requests/s as per IGDB documentation.
      * @param onAccessTokenRetrieved - Callback which can be used to save token to storage. Includes timestamp of when the token will expire.
      */
-    public async init(clientId: string, clientSecret: string, clientToken?: { token: string, tokenExpiry: number }, onAccessTokenRetrieved?: (clientToken: string, expiresAt: number) => void, rateLimitOptions?: rateLimitOptions){
+    public async init(clientId: string, clientSecret: string, clientToken?: { token: string, tokenExpiry: number }, onAccessTokenRetrieved?: (token: string, tokenExpiry: number) => void, rateLimitOptions?: rateLimitOptions){
 
         this.clientId = clientId
         this.clientSecret = clientSecret
@@ -86,7 +86,8 @@ export class IGDB {
                     }
                 })
 
-        const expiry = new Date().getTime() + response.expires_in
+        //expires_in is expressed in seconds not milliseconds therefore, *1000
+        const expiry = new Date().getTime() + (response.expires_in * 1000)
 
         this.clientToken = response.access_token
         this.tokenExpiry = expiry

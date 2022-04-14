@@ -6,21 +6,12 @@ An unofficial TypeScript wrapper for v4 of [IGDB.com API](https://api-docs.igdb.
 npm i igdb-ts
 ```
 
-Types Only (for front-end)
-```javascript
-npm i -d igdb-ts-types
-```
-
-## Working Example
-[igdb-ts-example-frontend]() - Create React App with Game Search
-[igdb-ts-example-backend]() - Node.JS Proxy Backend to interact with IGDB
-
 ## Usage
 
 #### Prerequisites
 * Obtain `Client ID` and `Client Secret` from [Twitch.tv](https://dev.twitch.tv/login).
 * To obtain the above, follow instructions provided by IGDB [here](https://api-docs.igdb.com/#about).
-* Assign authorized URLS which to handle Authentication. For development add `http:localhost.com`.
+* Assign authorized URLs. For development, add `http://localhost`.
 
 #### Important Things to Note
 * You should treat your `Client Secret` like a password.
@@ -36,12 +27,12 @@ import { IGDB } from 'igdb-ts';
 #### Instantiate & Initialise
 * `CLIENT_ID` - Client ID retrieved from Twitch
 * `CLIENT_SECRET` - Client Secret retrieved from Twitch
-* `CLIENT_TOKEN` - Twitch App Access Token (optional). You should pass this if you already have a valid app access token.
+* `CLIENT_TOKEN` - Twitch App Access Token (optional). You should pass this if you have a stored app access token.
 * `onAccessTokenRetrieved` 
     - Callback for you to store your access token.
     - Passes `clientToken` and `tokenExpiry` (in milliseconds from Epoch).
     - Will not call on `init()` if given `CLIENT_TOKEN`
-    - Will be called if access token expires as a new one will automatically be recreated.
+    - Will be called whenever your access token expires and will generate a new one for you automatically.
 * `RATE_OPTIONS` - Axio Rate Limit Options. Default settings are 4 requests / second as per IGDB documentation.
 
 ```typescript
@@ -51,7 +42,7 @@ const CLIENT_TOKEN = "MY_CLIENT_TOKEN";
 const RATE_OPTIONS = { maxRPS: 4 }
 
 //Callback to save token to storage
-const onAccessTokenRetrieved = (clientToken: string, tokenExpiry: number) => {
+const onAccessTokenRetrieved = (token: string, tokenExpiry: number) => {
 	//Save to storage
 }
 

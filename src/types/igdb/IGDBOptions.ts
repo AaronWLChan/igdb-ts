@@ -1,5 +1,5 @@
 //Can only have either a filter or combined filter. You cannot use both.
-export interface BaseIGDBOptions<T>{
+interface BaseIGDBOptions<T>{
     fields?: (keyof T)[],
     exclude?: (keyof T)[],
     limit?: number,
@@ -7,32 +7,32 @@ export interface BaseIGDBOptions<T>{
     sortBy?: OrderOption
 }
 
-export interface DefaultOptions<T> extends BaseIGDBOptions<T> {
+interface DefaultOptions<T> extends BaseIGDBOptions<T> {
     search?: never,
 }
 
-export interface DefaultOptionsWFilter<T> extends DefaultOptions<T>{
+interface DefaultOptionsWFilter<T> extends DefaultOptions<T>{
     filter?: Filter,
     combinedFilter?: never
 }
 
-export interface DefaultOptionsWCombinedFilter<T> extends DefaultOptions<T>{
+interface DefaultOptionsWCombinedFilter<T> extends DefaultOptions<T>{
     filter?: never,
     combinedFilter?: CombinedFilter
 }
 
 export type DefaultIGDBOptions<T> = DefaultOptionsWFilter<T> | DefaultOptionsWCombinedFilter<T>
 
-export interface SearchOptions<T> extends BaseIGDBOptions<T> {
+interface SearchOptions<T> extends BaseIGDBOptions<T> {
     search?: string,
 }
 
-export interface SearchOptionsWFilter<T> extends SearchOptions<T>{
+interface SearchOptionsWFilter<T> extends SearchOptions<T>{
     filter?: Filter,
     combinedFilter?: never
 }
 
-export interface SearchOptionsWCombinedFilter<T> extends SearchOptions<T>{
+interface SearchOptionsWCombinedFilter<T> extends SearchOptions<T>{
     filter?: never,
     combinedFilter?: CombinedFilter
 }
